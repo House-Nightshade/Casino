@@ -1,0 +1,30 @@
+
+package com.nightshade.casino.controller.views;
+
+import java.math.BigDecimal;
+
+import com.nightshade.casino.model.IGameStateModel;
+import com.nightshade.casino.model.components.CardRecord;
+import com.nightshade.casino.model.components.EGameState;
+
+public record FullGameView(
+        Long gameId,
+        Iterable<CardRecord> playerCards,
+        EGameState gameState,
+        BigDecimal playerBet,
+        BigDecimal winMultiplier,
+        BigDecimal playerWinnings
+) {
+
+    public static FullGameView of(IGameStateModel model) {
+
+        return new FullGameView(
+                model.getGameId(),
+                model.getPlayerCards(),
+                model.getGameState(),
+                model.getPlayerBet(),
+                model.getWinMultiplier(),
+                model.getPlayerWinnings()
+        );
+    }
+}

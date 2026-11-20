@@ -13,17 +13,17 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: true
   
-  spiel-app:
+  game-app:
     build: .
-    container_name: spiel-app
+    container_name: game-app
     ports:
       - "8081:8081"
     depends_on:
-      - spiel-db
+      - game-db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://spiel-db:5432/spiel
-      SPRING_DATASOURCE_USERNAME: spiel
-      SPRING_DATASOURCE_PASSWORD: spiel
+      SPRING_DATASOURCE_URL: jdbc:postgresql://game-db:5432/game
+      SPRING_DATASOURCE_USERNAME: game
+      SPRING_DATASOURCE_PASSWORD: game
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: true
 
@@ -39,18 +39,18 @@ services:
     volumes:
       - banking-db-data:/var/lib/postgresql/data
 
-  spiel-db:
+  game-db:
     image: postgres:17
-    container_name: spiel-db
+    container_name: game-db
     ports:
       - "5433:5433"
     environment:
-      POSTGRES_DB: spiel
-      POSTGRES_USER: spiel
-      POSTGRES_PASSWORD: spiel
+      POSTGRES_DB: game
+      POSTGRES_USER: game
+      POSTGRES_PASSWORD: game
     volumes:
-      - spiel-db-data:/var/lib/postgresql/data
+      - game-db-data:/var/lib/postgresql/data
 
 volumes:
   banking-db-data:
-  spiel-db-data:
+  game-db-data:
