@@ -1,0 +1,56 @@
+services:
+  banking-app:
+    build: .
+    container_name: banking-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - banking-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://banking-db:5432/banking
+      SPRING_DATASOURCE_USERNAME: banking
+      SPRING_DATASOURCE_PASSWORD: banking
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+  
+  spiel-app:
+    build: .
+    container_name: spiel-app
+    ports:
+      - "8081:8081"
+    depends_on:
+      - spiel-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://spiel-db:5432/spiel
+      SPRING_DATASOURCE_USERNAME: spiel
+      SPRING_DATASOURCE_PASSWORD: spiel
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+
+  banking-db:
+    image: postgres:17
+    container_name: banking-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: banking
+      POSTGRES_USER: banking
+      POSTGRES_PASSWORD: banking
+    volumes:
+      - banking-db-data:/var/lib/postgresql/data
+
+  spiel-db:
+    image: postgres:17
+    container_name: spiel-db
+    ports:
+      - "5433:5433"
+    environment:
+      POSTGRES_DB: spiel
+      POSTGRES_USER: spiel
+      POSTGRES_PASSWORD: spiel
+    volumes:
+      - spiel-db-data:/var/lib/postgresql/data
+
+volumes:
+  banking-db-data:
+  spiel-db-data:
