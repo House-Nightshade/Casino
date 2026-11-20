@@ -17,7 +17,7 @@ services:
     build: .
     container_name: game-app
     ports:
-      - "8081:8081"
+      - "8081:8080"
     depends_on:
       - game-db
     environment:
@@ -43,7 +43,7 @@ services:
     image: postgres:17
     container_name: game-db
     ports:
-      - "5433:5433"
+      - "5433:5432"
     environment:
       POSTGRES_DB: game
       POSTGRES_USER: game
