@@ -15,14 +15,17 @@ public interface IGameController {
     @PostMapping("play")
     ResponseEntity<QuickGameView> play(@RequestBody PlayRequest request);
 
-    @GetMapping("game/{id}")
-    ResponseEntity<FullGameView> getGame(@PathVariable Long id);
+    @GetMapping("game/{game_id}")
+    ResponseEntity<FullGameView> getGame(@PathVariable("game_id") Long gameId);
 
     @GetMapping("games")
     ResponseEntity<Iterable<FullGameView>> getGames();
 
     @GetMapping("games/user/{user_id}")
     ResponseEntity<Iterable<FullGameView>> getPlayerGames(@PathVariable ("user_id") Long userId);
+
+    @DeleteMapping("game/{game_id}")
+    ResponseEntity<FullGameView> deleteGame(@PathVariable("game_id") Long gameId);
 
     @GetMapping("stats")
     ResponseEntity<StatsView> getStats();
@@ -36,9 +39,4 @@ public interface IGameController {
 
     @GetMapping(value = "info/chances", produces = "text/markdown")
     ResponseEntity<String> getChances();
-
-    @DeleteMapping("game/{game_id}")
-    ResponseEntity<FullGameView> deleteGame(@PathVariable("game_id") Long gameId);
-
-
 }
