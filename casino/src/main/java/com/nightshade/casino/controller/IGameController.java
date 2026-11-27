@@ -1,11 +1,8 @@
 package com.nightshade.casino.controller;
 
+import com.nightshade.casino.controller.views.PlayerView;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.nightshade.casino.controller.requests.PlayRequest;
 import com.nightshade.casino.controller.views.FullGameView;
@@ -24,14 +21,14 @@ public interface IGameController {
     @GetMapping("games")
     ResponseEntity<Iterable<FullGameView>> getGames();
 
-    @GetMapping("games/player/{id}")
-    ResponseEntity<Iterable<FullGameView>> getPlayerGames(@PathVariable Long id);
+    @GetMapping("games/user/{user_id}")
+    ResponseEntity<Iterable<FullGameView>> getPlayerGames(@PathVariable ("user_id") Long userId);
 
     @GetMapping("stats")
     ResponseEntity<StatsView> getStats();
 
-    @GetMapping("stats/player/{id}")
-    ResponseEntity<FullGameView> getPlayerStats(@PathVariable Long id);
+    @GetMapping("stats/user/{user_id}")
+    ResponseEntity<PlayerView> getPlayerStats(@PathVariable ("user_id") Long userId);
 
     //NOTE: The following two endpoints will serve static markdown files that are stored in the resources folder. 
     @GetMapping(value = "info/rules", produces = "text/markdown")
@@ -39,4 +36,9 @@ public interface IGameController {
 
     @GetMapping(value = "info/chances", produces = "text/markdown")
     ResponseEntity<String> getChances();
+
+    @DeleteMapping("game/{game_id}")
+    ResponseEntity<FullGameView> deleteGame(@PathVariable("game_id") Long gameId);
+
+
 }
